@@ -1,35 +1,41 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-
+import { Routes, Route, Navigate } from "react-router-dom";
+import "./App.css";
+import Navbar from "./components/Navbar";
+import { useAuth } from "./services/AuthContext";
+import Books from "./components/Books";
+import Authors from "./components/Authors";
+import MyCollection from "./components/MyCollection";
+import AddBook from "./components/AddBook";
+import AddAuthor from "./components/AddAuthor";
+import Register from "./components/Register";
+import Login from "./components/Login";
+import BookDetails from "./components/BookDetailsComponent";
 function App() {
-  const [count, setCount] = useState(0)
-
+  const { user } = useAuth();
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    <Navbar></Navbar>
+    <main>
+      <Routes>
+        <Route path="/" element={<Navigate to="/books"/>}/>
+        <Route path="/books" element={<Books/>}/>
+        <Route path="/authors" element={<Authors />} />
+        <Route path="/books/:id" element={<BookDetails/>}/>
+        {user && user.role === "USER" && (
+            <Route path="/my-collection" element={<MyCollection />} />
+          )}
+          {user && user.role === "ADMIN" && (
+            <>
+              <Route path="/add-book" element={<AddBook />} />
+              <Route path="/add-author" element={<AddAuthor />} />
+            </>
+          )}
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+      </Routes>
+    </main>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
