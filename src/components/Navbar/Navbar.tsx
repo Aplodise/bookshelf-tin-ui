@@ -1,15 +1,19 @@
 import { useTranslation } from "react-i18next";
-import { useAuth } from "../services/AuthContext";
-import { NavLink } from "react-router-dom";
+import { useAuth } from "../../services/AuthContext";
+import { NavLink, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 export default function Navbar() {
   const { user, logout } = useAuth();
   const { t, i18n } = useTranslation();
-
+  const navigate = useNavigate();
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
   };
 
+  const handleLogout = () => {
+    logout();
+    navigate('/books');
+  }
   return (
     <nav>
       <ul>
@@ -29,7 +33,7 @@ export default function Navbar() {
             {t("Navbar.Authors")}
           </NavLink>
         </li>
-        {user && user.role === "USER" && (
+        {user && (
           <li>
             <NavLink
               to="/my-collection"
@@ -39,6 +43,7 @@ export default function Navbar() {
             </NavLink>
           </li>
         )}
+
         {user && user.role === "ADMIN" && (
           <>
             <li>
@@ -59,31 +64,48 @@ export default function Navbar() {
             </li>
           </>
         )}
-        <li>
-          <NavLink
-            to="/register"
-            className={({ isActive }) => (isActive ? "activeNav" : "")}
-          >
-            {user ? t("Logout") : t("Navbar.Register")}
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to="/login"
-            className={({ isActive }) => (isActive ? "activeNav" : "")}
-          >
-            {user ? t("Logout") : t("Navbar.Login")}
-          </NavLink>
-        </li>
+
+        {!user ? (
+          <>
+            <li>
+              <NavLink
+                to="/register"
+                className={({ isActive }) => (isActive ? "activeNav" : "")}
+              >
+                {t("Navbar.Register")}
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/login"
+                className={({ isActive }) => (isActive ? "activeNav" : "")}
+              >
+                {t("Navbar.Login")}
+              </NavLink>
+            </li>
+          </>
+        ) : (
+          <li>
+            <button onClick={handleLogout}>{t("Navbar.Logout")}</button>
+          </li>
+        )}
         <li className="language-selector">
           <div className="dropdown">
-            <div className="dropdown-toggle">Language</div>
+            <div className="dropdown-toggle">
+              {t("LanguageSelector.Language")}
+            </div>
             <div className="dropdown-menu">
-              <div className="dropdown-item" onClick={() => changeLanguage("en")}>
-                English
+              <div
+                className="dropdown-item"
+                onClick={() => changeLanguage("en")}
+              >
+                {t("LanguageSelector.English")}
               </div>
-              <div className="dropdown-item" onClick={() => changeLanguage("ru")}>
-                Russian
+              <div
+                className="dropdown-item"
+                onClick={() => changeLanguage("ru")}
+              >
+                {t("LanguageSelector.Russian")}
               </div>
             </div>
           </div>

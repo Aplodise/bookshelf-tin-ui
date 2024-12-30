@@ -1,0 +1,28 @@
+.book-comment {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #a2b473;
+    border-radius: 5px;
+    background-color: #a2b473;
+  }
+  
+  .comment-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+  }
+  
+  .comment-user {
+    font-weight: bold;
+    color: #666;
+  }
+  
+  .comment-date {
+    color: #666;
+  }
+  
+  .comment-body {
+    margin-top: 10px;
+    font-size: 1rem;
+    color: #3d3939;
+  }

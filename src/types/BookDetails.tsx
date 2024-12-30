@@ -17,5 +17,5 @@ export interface Comment{
     id: number;
     comment: string;
     createdAt: string;
-    commentUser: CommentUser;
+    commentUserDto: CommentUser;
 }

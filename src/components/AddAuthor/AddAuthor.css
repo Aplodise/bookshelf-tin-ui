@@ -1,0 +1,11 @@
+
+.add-summary{
+    max-width: 400px;
+    min-width: 400px;
+    box-sizing: border-box;
+    resize: none;
+    font-size: 14px;
+    background-color: white;
+    color: black;
+    min-height: 200px;
+}

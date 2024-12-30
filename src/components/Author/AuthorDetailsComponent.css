@@ -1,0 +1,16 @@
+.authors-book-section{
+    margin: 20px;
+    padding: 20px;
+    border: 2px solid #c6db8d;
+    border-radius: 8px;
+    background-color: #c6db8d;
+}
+.authors-book-section h2{
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: black;
+    margin-top: 10px;
+}
+.authors-books{
+    display: flex;
+}
